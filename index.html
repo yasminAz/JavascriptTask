@@ -37,8 +37,33 @@
         },
       ];
 
+      // Use this link for the laoding: https://upload.wikimedia.org/wikipedia/commons/a/ad/YouTube_loading_symbol_3_%28transparent%29.gif?20140201131911
       function checkUser() {
-        // Use this link for the laoding: https://upload.wikimedia.org/wikipedia/commons/a/ad/YouTube_loading_symbol_3_%28transparent%29.gif?20140201131911
+        console.log("checekd");
+        var img = document.createElement("img");
+        img.src =
+          "https://upload.wikimedia.org/wikipedia/commons/a/ad/YouTube_loading_symbol_3_%28transparent%29.gif?20140201131911";
+        document.getElementById("loadingBTN").append(img);
+        document.getElementById("loadingBTN").setAttribute("disabled", true);
+
+        let email = document.getElementById("email").value;
+        let emailExists = false;
+        for (let i = 0; i < array.length; i++) {
+          if (array[i].email == email) {
+            emailExists = true;
+          }
+        }
+        if (!emailExists) {
+          setTimeout(() => {
+            document.getElementById("errorMSG").innerHTML =
+              "user doesn't exist";
+            document
+              .getElementById("loadingBTN")
+              .setAttribute("disabled", false);
+            document.getElementById("loadingBTN").innerHTML = "Login";
+          }, 1500);
+        } else {
+        }
       }
     </script>
   </head>
@@ -93,7 +118,6 @@
                   class="orangeSubmit"
                   id="loadingBTN"
                   onclick="checkUser()"
-                  disabled="false"
                 >
                   Login
                 </button>
