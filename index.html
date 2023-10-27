@@ -10,6 +10,7 @@
     />
     <link rel="stylesheet" href="index.css" />
     <script>
+      const code="r6hodFq";
       let array = [
         {
           id: 100,
@@ -36,9 +37,95 @@
           password: "000000000",
         },
       ];
+      function checkUser()  {
+        
+    const emailInput = document.getElementById("email").value;
+    const passwordInput = document.getElementById("password").value;
+    const codeInput = document.getElementById("code").value;
+    const errorMSG = document.getElementById("errorMSG");
+    const successMSG = document.getElementById("successMSG");
+    let flag=0;
+    setTimeout(() => {
+        
+      if (emailInput === "") {
+        document.getElementById("email").classList.add("error-input");
+        flag=1;
+      } else {
+        document.getElementById("email").classList.remove("error-input");
+        flag=0;
+      }
+    }, 3000);
+    setTimeout(() => {
+  if (passwordInput === "") {
+    document.getElementById("password").classList.add("error-input");
+    flag=1;
+  } else {
+    document.getElementById("password").classList.remove("error-input");
+    flag=0;
+  }
+}, 3000);
+    setTimeout(() => {
+  if (codeInput === "") {
+    document.getElementById("code").classList.add("error-input");
+    flag=1;
+  } else {
+    document.getElementById("code").classList.remove("error-input");
+    flag=0;
+  }
+}, 3000);
+    
 
-      function checkUser() {
-        // Use this link for the laoding: https://upload.wikimedia.org/wikipedia/commons/a/ad/YouTube_loading_symbol_3_%28transparent%29.gif?20140201131911
+
+
+    let elem = document.createElement("img");
+    elem.src ="https://upload.wikimedia.org/wikipedia/commons/a/ad/YouTube_loading_symbol_3_%28transparent%29.gif?20140201131911";
+    document.getElementById("loadingBTN").appendChild(elem);
+    document.getElementById("loadingBTN").disabled = true;
+    const myTimeout = setTimeout(disableBTN, 3000); 
+
+
+    // Check if the email exists in the array
+    const user = array.find((user) => user.email === emailInput);
+    errorMSG.innerHTML = "";
+        successMSG.innerHTML = "";
+    if (user) {
+      // Email exists, now check the code and password
+      setTimeout(() => {
+        
+
+       
+          if (user.password === passwordInput) {
+            if(codeInput === code){
+            successMSG.innerHTML = "Login successful!";
+          } else{
+            errorMSG.innerHTML = "Incorrect Security Code";
+            if(flag===1){errorMSG.innerHTML = "Please fill out the indicated fields";}
+
+          }}
+          else {
+            // Password is incorrect, show an error message after a 3-second delay
+            errorMSG.innerHTML = "Incorrect password. Please try again.";
+            if(flag===1){errorMSG.innerHTML = "Please fill out the indicated fields";}
+          } 
+      }, 3000);
+    } else {
+      // Email does not exist, show an error message after a 3-second delay
+      setTimeout(() => {
+        errorMSG.innerHTML = "Email not found. Please try another email.";
+        if(flag===1){errorMSG.innerHTML = "Please fill out the indicated fields";}
+      }, 3000);
+    }
+  }
+
+  
+
+      
+      
+      function disableBTN(){
+        
+        document.getElementById("loadingBTN").innerHTML="Login "; 
+      
+        document.getElementById("loadingBTN").disabled = false;
       }
     </script>
   </head>
@@ -65,6 +152,7 @@
                   class="input"
                   placeholder="Example@example.com"
                   id="email"
+                  required
                 />
               </div>
               <div class="col-12 inputCol">
@@ -74,6 +162,7 @@
                   class="input"
                   placeholder="Minimum 8 Characters"
                   id="password"
+                  required
                 />
               </div>
               <div class="col-12 inputCol">
@@ -82,7 +171,7 @@
                   the image below?</label
                 >
                 <img src="code.png" class="img-fluid codeIMG" />
-                <input type="text" class="input" id="code" />
+                <input type="text" class="input" id="code" required/>
               </div>
               <div class="col-12 inputCol">
                 <p class="errorMSG" id="errorMSG"></p>
@@ -93,7 +182,7 @@
                   class="orangeSubmit"
                   id="loadingBTN"
                   onclick="checkUser()"
-                  
+                 
                 >
                   Login
                 </button>
@@ -105,3 +194,5 @@
     </div>
   </body>
 </html>
+
+

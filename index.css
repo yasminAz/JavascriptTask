@@ -100,3 +100,6 @@ body {
   width: 14px;
   height: 14px;
 }
+.input.error-input {
+  border: 2px solid #ef1e1e; /* Red border for invalid input */
+}
